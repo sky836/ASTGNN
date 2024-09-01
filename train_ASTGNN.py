@@ -106,17 +106,17 @@ print(net, flush=True)
 
 
 def train_main():
-    if (start_epoch == 0) and (not os.path.exists(params_path)):  # 从头开始训练，就要重新构建文件夹
-        os.makedirs(params_path)
-        print('create params directory %s' % (params_path), flush=True)
-    elif (start_epoch == 0) and (os.path.exists(params_path)):
-        shutil.rmtree(params_path)
-        os.makedirs(params_path)
-        print('delete the old one and create params directory %s' % (params_path), flush=True)
-    elif (start_epoch > 0) and (os.path.exists(params_path)):  # 从中间开始训练，就要保证原来的目录存在
-        print('train from params directory %s' % (params_path), flush=True)
-    else:
-        raise SystemExit('Wrong type of model!')
+    # if (start_epoch == 0) and (not os.path.exists(params_path)):  # 从头开始训练，就要重新构建文件夹
+    #     os.makedirs(params_path)
+    #     print('create params directory %s' % (params_path), flush=True)
+    # elif (start_epoch == 0) and (os.path.exists(params_path)):
+    #     shutil.rmtree(params_path)
+    #     os.makedirs(params_path)
+    #     print('delete the old one and create params directory %s' % (params_path), flush=True)
+    # elif (start_epoch > 0) and (os.path.exists(params_path)):  # 从中间开始训练，就要保证原来的目录存在
+    #     print('train from params directory %s' % (params_path), flush=True)
+    # else:
+    #     raise SystemExit('Wrong type of model!')
 
     criterion = nn.L1Loss().to(DEVICE)  # 定义损失函数
     optimizer = optim.Adam(net.parameters(), lr=learning_rate)  # 定义优化器，传入所有网络参数
@@ -140,7 +140,8 @@ def train_main():
     # train model
     if start_epoch > 0:
 
-        params_filename = os.path.join(params_path, 'epoch_%s.params' % start_epoch)
+        # params_filename = os.path.join(params_path, 'epoch_%s.params' % start_epoch)
+        params_filename = params_path
 
         net.load_state_dict(torch.load(params_filename))
 
@@ -152,7 +153,8 @@ def train_main():
 
     for epoch in range(start_epoch, epochs):
 
-        params_filename = os.path.join(params_path, 'epoch_%s.params' % epoch)
+        # params_filename = os.path.join(params_path, 'epoch_%s.params' % epoch)
+        params_filename = params_path
 
         # apply model on the validation data set
         val_loss = compute_val_loss(net, val_loader, criterion, sw, epoch)
@@ -207,7 +209,8 @@ def train_main():
     print('fine tune the model ... ', flush=True)
     for epoch in range(epochs, epochs+fine_tune_epochs):
 
-        params_filename = os.path.join(params_path, 'epoch_%s.params' % epoch)
+        # params_filename = os.path.join(params_path, 'epoch_%s.params' % epoch)
+        params_filename = params_filename = params_path
 
         net.train()  # ensure dropout layers are in train mode
 
@@ -280,7 +283,8 @@ def predict_main(epoch, data_loader, data_target_tensor, _max, _min, type):
     :return:
     '''
 
-    params_filename = os.path.join(params_path, 'epoch_%s.params' % epoch)
+    # params_filename = os.path.join(params_path, 'epoch_%s.params' % epoch)
+    params_filename = params_path
 
     print('load weight from:', params_filename, flush=True)
 
