@@ -17,7 +17,7 @@ from tensorboardX import SummaryWriter
 
 # read hyper-param settings
 parser = argparse.ArgumentParser()
-parser.add_argument("--config", default='configurations/PEMSBAY.conf', type=str, help="configuration file path")
+parser.add_argument("--config", default='configurations/METRLA.conf', type=str, help="configuration file path")
 parser.add_argument('--cuda', type=str, default='0')
 args = parser.parse_args()
 os.environ["CUDA_VISIBLE_DEVICES"] = args.cuda
