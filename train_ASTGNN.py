@@ -157,8 +157,8 @@ def train_main():
         params_filename = params_path
 
         # apply model on the validation data set
-        # val_loss = compute_val_loss(net, val_loader, criterion, sw, epoch)
-        val_loss = 1
+        val_loss = compute_val_loss(net, val_loader, criterion, sw, epoch)
+        # val_loss = 1
 
         if val_loss < best_val_loss:
             best_val_loss = val_loss
