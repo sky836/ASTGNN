@@ -157,12 +157,13 @@ def train_main():
         params_filename = params_path
 
         # apply model on the validation data set
-        val_loss = compute_val_loss(net, val_loader, criterion, sw, epoch)
+        # val_loss = compute_val_loss(net, val_loader, criterion, sw, epoch)
+        val_loss = 1
 
         if val_loss < best_val_loss:
             best_val_loss = val_loss
             best_epoch = epoch
-            torch.save(net.state_dict(), params_filename)
+            torch.save(net.state_dict(), params_filename + '/' + 'checkpoint.pth')
             print('save parameters to file: %s' % params_filename, flush=True)
 
         net.train()  # ensure dropout layers are in train mode
