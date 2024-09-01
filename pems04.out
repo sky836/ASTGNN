@@ -1,0 +1,4 @@
+CUDA: False cuda:0
+Read configuration file: configurations/PEMS04.conf
+total training epoch, fine tune epoch: 100 , 50
+batch_size: 4
