@@ -196,6 +196,9 @@ def train_main():
 
             sw.add_scalar('training_loss', training_loss, global_step)
 
+            if batch_index % 100 == 0:
+                print(f'batch_index:{batch_index}, loss:{training_loss}')
+
         print('epoch: %s, train time every whole data:%.2fs' % (epoch, time() - train_start_time), flush=True)
         print('epoch: %s, total time:%.2fs' % (epoch, time() - start_time), flush=True)
 
